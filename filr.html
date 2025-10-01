@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KHR COLLECTION</title>
+  <meta name="description" content="KHR COLLECTION — simple store layout" />
+  <style>
+    /* Basic reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;line-height:1.5;color:#111;background:#f7f7f8}
+    a{color:inherit;text-decoration:none}
+
+    /* Container */
+    .container{max-width:1100px;margin:0 auto;padding:20px}
+
+    /* Header / nav */
+    header{background:#fff;border-bottom:1px solid #e6e6e6}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{
+      width:46px;height:46px;border-radius:8px;background:linear-gradient(135deg,#222,#444);
+      color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;
+    }
+    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+    nav a{color:#333}
+    .btn{padding:8px 14px;border-radius:8px;border:1px solid #222;background:#222;color:#fff;font-weight:600;cursor:pointer}
+
+    /* Mobile nav toggle */
+    .menu-toggle{display:none;background:none;border:0;font-size:20px;cursor:pointer}
+
+    /* Hero */
+    .hero{display:flex;gap:24px;align-items:center;padding:36px 0}
+    .hero .left{flex:1}
+    .hero h1{font-size:32px;margin-bottom:10px}
+    .hero p{color:#444;margin-bottom:16px}
+    .hero .cta{display:inline-block;padding:10px 16px;border-radius:8px;background:#111;color:#fff}
+
+    .hero .right{flex:1;display:flex;align-items:center;justify-content:center}
+    .hero .right img{width:100%;max-width:480px;border-radius:12px;display:block}
+
+    /* Grid / cards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:28px 0}
+    .card{background:#fff;border-radius:10px;padding:14px;border:1px solid #eee;box-shadow:0 6px 18px rgba(10,10,10,0.03);cursor:pointer}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px}
+    .card h3{font-size:16px;margin-bottom:6px}
+    .card p{color:#666;font-size:14px;margin-bottom:10px}
+    .card .price{font-weight:700}
+
+    /* About / contact */
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:28px 0}
+    .card-contact{background:#fff;padding:18px;border-radius:10px;border:1px solid #eee;box-shadow:0 6px 18px rgba(10,10,10,0.03)}
+    .card-contact h3{margin-bottom:8px}
+    .card-contact p{color:#666;font-size:14px}
+
+    footer{padding:20px 0;color:#666;font-size:14px;border-top:1px solid #eee;margin-top:30px;text-align:center}
+
+    /* Modal */
+    .modal{
+      display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:1000;
+    }
+    .modal-content{
+      background:#fff;padding:20px;border-radius:12px;max-width:520px;width:92%;position:relative;
+    }
+    .modal-content img{width:100%;border-radius:10px;margin-bottom:10px}
+    .close-btn{position:absolute;top:10px;right:15px;font-size:20px;cursor:pointer}
+    .modal-content h2{margin-bottom:8px}
+    .modal-content p{margin-bottom:10px;color:#444}
+    .modal-content select,.modal-content button{
+      margin:8px 0;padding:10px;border-radius:8px;border:1px solid #ddd;width:100%;
+    }
+    .modal-content button{background:#111;color:#fff;font-weight:700;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:760px){
+      nav ul{display:none}
+      .menu-toggle{display:inline-block}
+      .hero{flex-direction:column}
+      .split{grid-template-columns:1fr}
+      .brand .logo{width:40px;height:40px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <!-- Replace with your logo image if you like -->
+        <img src="IMG_20251001_142626.jpg" alt="KHR logo" style="width:46px;height:46px;border-radius:8px">
+        <div>
+          <div style="font-weight:700">KHR COLLECTION</div>
+          <div style="font-size:12px;color:#666">Luxury &amp; simplicity</div>
+        </div>
+      </div>
+
+      <nav>
+        <button class="menu-toggle" aria-label="menu" onclick="toggleNav()">☰</button>
+        <ul id="mainNav">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#shop">Shop</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <button class="btn" onclick="openCart()">Cart (0)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="home">
+    <!-- Hero -->
+    <section class="hero" aria-label="Main hero">
+      <div class="left">
+        <h1>New collection — timeless pieces</h1>
+        <p>Minimal design, premium quality. Browse our curated items and add to cart with a single click.</p>
+
+        <!-- Shop button -->
+        <a class="cta" href="#shop">Shop Now</a>
+
+        <!-- WhatsApp Button (highlighted in hero) -->
+        <a href="https://chat.whatsapp.com/LKDvNi0HOMu8AUHI9B8pmT" target="_blank"
+           style="display:inline-block;margin-top:14px;padding:12px 20px;border-radius:8px;background:#25D366;color:#fff;font-weight:700;text-decoration:none;font-size:16px;box-shadow:0 4px 10px rgba(0,0,0,0.2)">
+           💬 Join Our WhatsApp Group
+        </a>
+      </div>
+
+      <div class="right">
+        <!-- Replace this with your final hero image file -->
+        <img src="ChatGPT Image Oct 1, 2025, 02_41_12 PM.png" alt="KHR COLLECTION Hero Banner">
+      </div>
+    </section>
+
+    <!-- Products / shop -->
+    <section id="shop">
+      <h2 style="margin-bottom:12px">Featured products</h2>
+      <div class="grid">
+        <!-- Product cards: clicking a card opens modal with details -->
+        <article class="card" onclick="openProduct('Product Name 1','https://via.placeholder.com/800x600?text=Product+1','Short description about product 1.','₨3,500')">
+          <img src="https://via.placeholder.com/600x400?text=Product+1" alt="Product 1">
+          <h3>Product Name 1</h3>
+          <p>Short description about product 1. Material, size, or highlight features.</p>
+          <div class="price">₨3,500</div>
+        </article>
+
+        <article class="card" onclick="openProduct('Product Name 2','https://via.placeholder.com/800x600?text=Product+2','Short description about product 2.','₨2,200')">
+          <img src="https://via.placeholder.com/600x400?text=Product+2" alt="Product 2">
+          <h3>Product Name 2</h3>
+          <p>Short description about product 2.</p>
+          <div class="price">₨2,200</div>
+        </article>
+
+        <article class="card" onclick="openProduct('Product Name 3','https://via.placeholder.com/800x600?text=Product+3','Short description about product 3.','₨4,800')">
+          <img src="https://via.placeholder.com/600x400?text=Product+3" alt="Product 3">
+          <h3>Product Name 3</h3>
+          <p>Short description about product 3.</p>
+          <div class="price">₨4,800</div>
+        </article>
+
+        <!-- add more product cards the same way -->
+      </div>
+    </section>
+
+    <!-- About & Contact (fixed back in) -->
+    <section class="split" id="about" aria-label="about">
+      <div class="card-contact">
+        <h3>About KHR COLLECTION</h3>
+        <p>KHR COLLECTION is dedicated to minimal, long-lasting designs. We focus on quality materials and clean aesthetics.</p>
+        <p style="font-size:13px;color:#777">Founded: 2025 • Shipping worldwide</p>
+      </div>
+
+      <div class="card-contact" id="contact">
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:info@khrcollection.com">info@khrcollection.com</a></p>
+        <p>Phone: +92 300 1234567</p>
+
+        <form onsubmit="event.preventDefault(); alert('Form submitted (demo)')">
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+            <input type="text" placeholder="Name" required style="padding:10px;border-radius:6px;border:1px solid #ddd">
+            <input type="email" placeholder="Email" required style="padding:10px;border-radius:6px;border:1px solid #ddd">
+            <textarea placeholder="Message" rows="3" style="padding:10px;border-radius:6px;border:1px solid #ddd"></textarea>
+            <button class="btn" type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal (product details + variants) -->
+  <div id="productModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <span class="close-btn" onclick="closeProduct()" aria-label="Close">✖</span>
+      <img id="modalImg" src="" alt="">
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+      <div id="modalPrice" style="font-weight:700;margin-bottom:10px"></div>
+
+      <label for="modalColor">Choose color:</label>
+      <select id="modalColor" aria-label="Choose color">
+        <option>Black</option>
+        <option>Blue</option>
+        <option>White</option>
+      </select>
+
+      <label for="modalSize">Choose size:</label>
+      <select id="modalSize" aria-label="Choose size">
+        <option>Small</option>
+        <option>Medium</option>
+        <option>Large</option>
+      </select>
+
+      <button id="addToCartBtn">Add to Cart</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> KHR COLLECTION • All rights reserved
+    </div>
+  </footer>
+
+  <script>
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav toggle
+    function toggleNav(){
+      const nav = document.getElementById('mainNav');
+      if(nav.style.display === 'flex') nav.style.display = '';
+      else nav.style.display = 'flex';
+      nav.style.flexDirection = 'column';
+      nav.style.gap = '12px';
+    }
+
+    // demo cart open
+    function openCart(){ alert('Open cart (demo)'); }
+
+    // Modal logic
+    const modal = document.getElementById('productModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalImg = document.getElementById('modalImg');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalPrice = document.getElementById('modalPrice');
+    const addBtn = document.getElementById('addToCartBtn');
+
+    // store current product info for add-to-cart action
+    let currentProduct = null;
+
+    function openProduct(name, img, desc, price){
+      currentProduct = { name, img, desc, price };
+      modalTitle.innerText = name;
+      modalImg.src = img;
+      modalDesc.innerText = desc;
+      modalPrice.innerText = price;
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeProduct(){
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    // Add to cart (demo) — you can replace with real cart logic or WhatsApp order flow
+    addBtn.addEventListener('click', function(){
+      const color = document.getElementById('modalColor').value;
+      const size = document.getElementById('modalSize').value;
+      if(!currentProduct){
+        alert('No product selected');
+        return;
+      }
+      // demo behaviour
+      alert(`${currentProduct.name} (${color}, ${size}) added to cart — ${currentProduct.price}`);
+      closeProduct();
+    });
+
+    // close modal on Esc
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeProduct();
+    });
+
+    // close modal when clicking outside content
+    modal.addEventListener('click', function(e){
+      if(e.target === modal) closeProduct();
+    });
+  </script>
+</body>
+</html>
